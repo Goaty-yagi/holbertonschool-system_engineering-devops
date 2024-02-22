@@ -5,6 +5,7 @@
 - [What is DNS ](#what_is_dns)
 - [What is Load balancer ](#what_is_load_balancer)
 - [What if no load balancer ](#what_is_load_balancer)
+- [Load balancer algorithms](#load-balancer-algorithms)
 - [What is Monitoring ](#what_is_monitoring)
 - [What is a database](#what_is_a_database)
 - [What’s the difference between a web server and an app server?](#what’s_the_difference_between_a_web_server_and_an_app_server?)
@@ -62,6 +63,24 @@ Without load balancing, redundancy is limited. If the primary server fails, ther
   Traffic spikes, such as during a sudden increase in user activity or due to an event, can overwhelm a single server. Load balancing helps distribute such spikes across multiple servers.
 
 In the context of computing and network traffic, a "spike" refers to a sudden and temporary increase in activity or demand.
+
+## Load balancer algorithms
+
+### Weighted Scheduling Algorithm
+
+<img src='https://static.thegeekstuff.com/wp-content/uploads/2016/01/1-weighted-scheduling-load-balancer.png'>
+
+Work is assigned to the server according to the weight assigned to the server. For different types of the server in the group different weights are assigned thus the load gets distributed.
+
+### Round Robin Scheduling
+
+<img src='https://static.thegeekstuff.com/wp-content/uploads/2016/01/2-round-robin-load-balancer.png'>
+
+Round Robin is a simple and widely used load balancing algorithm that distributes incoming network or application traffic evenly across a group of servers.
+
+### Least Connection First Scheduling
+Requests are served first to the server which is currently handling least number of persistent connections.
+
 
 ## What is Monitoring
 
@@ -254,12 +273,11 @@ In an active-passive cluster, one node (or a subset of nodes) actively handles t
 - Considerations:
   -- Resource utilization: Passive nodes are not contributing to processing requests unless the active node fails.
   -- May result in underutilization of resources in normal operation.
-Both active-active and active-passive configurations have their use cases, and the choice depends on factors such as the application requirements, desired resource utilization, and the level of complexity the organization is willing to manage.
+  Both active-active and active-passive configurations have their use cases, and the choice depends on factors such as the application requirements, desired resource utilization, and the level of complexity the organization is willing to manage.
 
 ## What is HTTPS
 
 HTTPS stands for Hypertext Transfer Protocol Secure. It is an extension of HTTP (Hypertext Transfer Protocol) that is used to secure the communication over a computer network, typically the internet. HTTPS is designed to provide a secure and encrypted connection between a user's web browser and the website they are interacting with.
-
 
 ### Encryption:
 
@@ -286,6 +304,7 @@ HTTPS stands for Hypertext Transfer Protocol Secure. It is an extension of HTTP 
 - Browsers provide visual indicators, such as a padlock icon, to inform users that they are on a secure, HTTPS-enabled website. This builds trust and confidence among users regarding the safety of their data.
 
 ## What is a firewall
+
 A firewall is a network security device or software that monitors and controls incoming and outgoing network traffic based on predetermined security rules. Its primary purpose is to establish a barrier between a trusted internal network and untrusted external networks, such as the internet. Firewalls are a fundamental component of network security and help protect systems and data from unauthorized access, cyber threats, and other potential security risks.
 
 ### Packet Filtering:
@@ -293,25 +312,33 @@ A firewall is a network security device or software that monitors and controls i
 - Firewalls examine individual data packets and make decisions about whether to allow or block them based on predefined rules. These rules typically consider factors such as source and destination IP addresses, port numbers, and the protocol used.
 
 ### Stateful Inspection:
+
 - Stateful firewalls keep track of the state of active connections and make decisions based on the context of the traffic. This allows them to understand the state of a connection and make more informed decisions.
 
 ### Proxying and Network Address Translation (NAT):
+
 - Some firewalls act as proxies, forwarding requests on behalf of clients to enhance security. NAT is often used to hide internal IP addresses from external networks, providing an additional layer of security.
 
 ### Application Layer Filtering:
+
 - Firewalls can inspect and control traffic at the application layer, allowing or blocking specific applications or services. This is often done using deep packet inspection to analyze the content of data packets.
 
 ### Virtual Private Network (VPN) Support:
+
 - Firewalls often include VPN capabilities to establish secure encrypted tunnels for remote users or branch offices to connect to the corporate network over the internet.
 
 ### Intrusion Prevention and Detection:
+
 - Some advanced firewalls include intrusion prevention and detection systems (IPS/IDS) to identify and block potentially malicious activity in real-time.
 
 ### Logging and Reporting:
+
 - Firewalls maintain logs of network activity, allowing administrators to review and analyze events. They may also generate reports to provide insights into network traffic patterns and security incidents.
 
 ### User Authentication and Access Control:
+
 - Firewalls can enforce user authentication and access control policies, restricting access to certain resources based on user credentials and roles.
 
 ### Security Zones:
+
 - Firewalls can define security zones to segment a network into different areas with varying levels of trust. This helps contain and control the spread of threats.
