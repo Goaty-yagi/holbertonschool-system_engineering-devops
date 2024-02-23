@@ -135,3 +135,71 @@ The primary node and replica nodes in a database cluster serve different roles, 
 - Consistency:
   -- Primary Node (Master): The primary node ensures data consistency by validating and committing write operations before replication.
   -- Replica Nodes (Slaves): Replica nodes aim to maintain consistency with the primary node by applying changes in the same order and ensuring that the replicated data matches the primary data.
+
+### 2. Secured and monitored web infrastructure
+
+**File:** [2-secured_and_monitored_web_infrastructure](https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/2-secured_and_monitored_web_infrastructure)<br>
+**Description:** <br>
+On a whiteboard, design a three server web infrastructure that hosts the website www.foobar.com, it must be secured, serve encrypted traffic, and be monitored.
+**Requirements:** <br>
+
+- You must add:
+  -- 3 firewalls
+  -- 1 SSL certificate to serve www.foobar.com over HTTPS
+  -- 3 monitoring clients (data collector for Sumologic or other monitoring services)
+- You must be able to explain some specifics about this infrastructure:
+  -- For every additional element, why you are adding it
+  -- What are firewalls for
+  -- Why is the traffic served over HTTPS
+  -- What monitoring is used for
+  -- How the monitoring tool is collecting data
+  -- Explain what to do if you want to monitor your web server QPS
+- You must be able to explain what the issues are with this infrastructure:
+  -- Why terminating SSL at the load balancer level is an issue
+  -- Why having only one MySQL server capable of accepting writes is an issue
+  -- Why having servers with all the same components (database, web server and application server) might be a problem
+
+#### :For every additional element, why you are adding it
+
+- 3 firewalls: to filter out malicious requests in each server to increase security.
+- SSL certificate: to make an encrypted connection between a client and a server for safe connection.
+- 3 monitoring: to check several things like resource utilization (CPU, memory, disk), Availability, error and exception monitoring, alert monitoring to sustain your servers health.
+
+#### :What are firewalls for
+
+- Firewalls are security devices or software components designed to monitor, filter, and control incoming and outgoing network traffic based on predetermined security rules.
+
+#### :Why is the traffic served over HTTPS
+
+- to make sure the connection is encrypted so that the data won't be read even if it is stolen.
+
+#### :What monitoring is used for
+
+- Monitor resource utilization, error, alert and flow of the traffic to collect matrix to be analysed.
+
+#### How the monitoring tool is collecting data
+
+Generally
+
+- 1, Install monitoring tools
+- 2, Configure settings and integration
+- 3, Set logging wherever you like
+- 4, The monitoring tool detects the logging and starts API call to send the logging data
+
+#### Explain what to do if you want to monitor your web server QPS
+
+- Apache Benchmark can be an option
+  -- n: The total number of requests to perform during the test.
+  -- c: The number of multiple requests to perform at a time.
+  -- For example, to send 1000 requests with 10 concurrent requests to your Nginx server's homepage, you would run:
+
+```bash
+ab -n 1000 -c 10 http://your-nginx-server/
+```
+
+- Then you will get a result includes QPS like this
+
+```bash
+Requests per second:    200.00 [#/sec] (mean)
+```
+- This indicates that the server is handling approximately 200 requests per second on average.
