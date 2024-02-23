@@ -32,6 +32,8 @@ This project is based on the learning objectives - see the [LEARNING_OBJECTIVES]
 
 ### 0. Simple web stack
 
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/0-diagram.png'>
+
 **File:** [0-simple_web_stack](https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/0-simple_web_stack)<br>
 **Description:** <br>
 On a whiteboard, design a one server web infrastructure that hosts the website that is reachable via www.foobar.com. Start your explanation by having a user wanting to access your website.
@@ -71,6 +73,8 @@ When you want to deploy a new code, you need to stop the server that decrease re
 One server always handles all incoming traffic, so it will be overwhelmed, and might be overflow. Also it is hard to scale up without stopping the server.
 
 ### 1. Distributed web infrastructure
+
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/1-diagram.png'>
 
 **File:** [1-distributed_web_infrastructure](https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/1-distributed_web_infrastructure)<br>
 **Description:** <br>
@@ -138,6 +142,8 @@ The primary node and replica nodes in a database cluster serve different roles, 
 
 ### 2. Secured and monitored web infrastructure
 
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/2-diagram.png'>
+
 **File:** [2-secured_and_monitored_web_infrastructure](https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/2-secured_and_monitored_web_infrastructure)<br>
 **Description:** <br>
 On a whiteboard, design a three server web infrastructure that hosts the website www.foobar.com, it must be secured, serve encrypted traffic, and be monitored.
@@ -202,4 +208,55 @@ ab -n 1000 -c 10 http://your-nginx-server/
 ```bash
 Requests per second:    200.00 [#/sec] (mean)
 ```
+
 - This indicates that the server is handling approximately 200 requests per second on average.
+
+- Why terminating SSL at the load balancer level is an issue
+  -- Loss of End-to-End Encryption:
+- How to keep SSL to the end?
+  -- Re-Encryption at Each Server: In this approach, each server in the chain (load balancer and backend servers) participates in SSL/TLS encryption and decryption. The SSL connection is terminated at the load balancer, and the traffic is re-encrypted before being forwarded to the backend servers. Each backend server then handles its own SSL/TLS termination.
+  -- SSL Passthrough to Backend Servers: In this approach, SSL passthrough is used, and SSL/TLS traffic is not decrypted at the load balancer. The encrypted traffic is passed through to each backend server, and each server handles its own SSL/TLS termination.
+
+- Why having only one MySQL server capable of accepting writes is an issue
+  -- Single Point of Failure:
+  If the sole MySQL server handling write operations fails, the entire write functionality becomes unavailable. This results in downtime and disrupts the application's ability to update or modify data.
+  -- Limited Scalability:
+  A single MySQL server may become a bottleneck as the application grows. It may not be able to handle increased write traffic or a growing dataset efficiently. This limits the overall scalability of the database system.
+  -- Reduced Performance:
+  Increased write load on a single server can lead to performance degradation. As the volume of write operations grows, the server might struggle to keep up with the demand, leading to slower response times and potential contention issues.
+  -- Difficulty in Maintenance:
+  Performing maintenance tasks, such as software updates, patches, or hardware upgrades, on the single MySQL server can be challenging. These tasks often require downtime, impacting the availability of write operations.
+
+- Why having servers with all the same components (database, web server and application server) might be a problem
+  -- SPOF
+  -- Scalability
+  -- Availability
+
+### 3. Scale up
+
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/3-diagram.png'>
+
+**File:** [3-scale_up](https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/3-scale_up)<br>
+**Description:** <br>
+Scale up
+**Requirements:** <br>
+
+- You must add:
+  -- 1 server
+  -- 1 load-balancer (HAproxy) configured as cluster with the other one
+  -- Split components (web server, application server, database) with their own server
+- You must be able to explain some specifics about this infrastructure:
+  -- For every additional element, why you are adding it
+
+
+### SSL/TLP
+
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/ssl-tls.png'>
+
+### DNS Server
+
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/dns-server.png'>
+
+### TCP-three-way-handshake
+
+<img src='https://github.com/Goaty-yagi/holbertonschool-system_engineering-devops/blob/main/web_infrastructure_design/tcp-three-way-handshake.png'>
